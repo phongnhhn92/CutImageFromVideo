@@ -1,8 +1,10 @@
 #include "opencv2/highgui/highgui.hpp"
+#include <thread>
 #include <iostream>
 
 using namespace cv;
 using namespace std;
+
 
 int main(int argc, char* argv[])
 {
@@ -33,16 +35,19 @@ int main(int argc, char* argv[])
 			cout << "Cannot read the frame from video file" << endl;
 			break;
 		}
-
-
+		
+		//Save Image
 		int currentFrame = cap.get(CV_CAP_PROP_POS_FRAMES);
 		cout << currentFrame << endl;
 		if (currentFrame % 30 == 0)
 		{
 			cap >> currentImage;
-			imwrite(imageCount + ".jpg", currentImage);
+			imwrite(to_string(imageCount) + ".jpg", currentImage);
 			cout << "Saved Image" << endl;
+			imageCount++;
 		}
+		
+
 
 		imshow("MyVideo", frame); //show the frame in "MyVideo" window
 
